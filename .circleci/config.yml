@@ -21,7 +21,10 @@ jobs:
       - run:
           name: Deploy
           command: |
-            aws lightsail --help
+            aws lightsail push-container-image \
+              --region ap-northeast-1 \
+              --service-name $CIRCLE_PROJECT_REPONAME \
+              --image $CIRCLE_PROJECT_REPONAME:latest
 
 workflows:
   version: 2.1
