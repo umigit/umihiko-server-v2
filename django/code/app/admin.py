@@ -1,7 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth import User
-
-# from django.contrib.auth.models import User
 from .models import (
     ProgramingLanguage,
     Framework,
@@ -10,23 +7,10 @@ from .models import (
     Service,
     Tool,
     Profile,
-    EnglishProfile,
 )
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = (
-        "user",
-        "nickname",
-        "summary",
-        "introduction",
-        "created_at",
-        "updated_at",
-    )
-    ordering = ("-created_at",)
-
-
-class EnglishProfileAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "nickname",
@@ -119,4 +103,3 @@ admin.site.register(OperatingSystem, OperatingSystemAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Tool, ToolAdmin)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(EnglishProfile, EnglishProfileAdmin)

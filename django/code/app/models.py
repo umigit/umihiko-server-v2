@@ -7,28 +7,8 @@ from django.contrib.auth.models import (
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-    )
-    nickname = models.CharField(max_length=200, null=False, default="")
-    summary = models.TextField(
-        blank=True,
-        default="",
-    )
-    introduction = models.TextField(
-        blank=True,
-        default="",
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-class EnglishProfile(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profiles")
+    locale = models.CharField(max_length=20, null=False)
     nickname = models.CharField(max_length=200, null=False, default="")
     summary = models.TextField(
         blank=True,
