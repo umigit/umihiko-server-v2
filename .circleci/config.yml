@@ -32,11 +32,3 @@ workflows:
               only:
                 - main
                 - circleci-test
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - main
-                - circleci-test
