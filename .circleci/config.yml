@@ -9,5 +9,13 @@ jobs:
           command: |
             echo 'export IMAGE_NAME=${CIRCLE_PROJECT_REPONAME}' >> ${BASH_ENV}
             docker login .......
-            docker build --progress plain -t $IMAGE_NAME .
+            docker build --progress plain -t $IMAGE_NAME ./django/Dockerfile.production
             docker images
+workflows:
+  version: 2.1
+  build_and_deploy:
+    jobs:
+      - build-image:
+          filters:
+            branches:
+              only: main
