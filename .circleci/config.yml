@@ -22,13 +22,6 @@ jobs:
             set -x
             sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
             sudo chmod +x /usr/local/bin/lightsailctl
-            mkdir ~/.aws || echo pass
-            echo '[default]' >| ~/.aws/credentials
-            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
-            echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-            echo '[default]' >| ~/.aws/config
-            echo 'region=ap-northeast-1' >> ~/.aws/config
-            echo 'output=json' >> ~/.aws/config
             aws lightsail push-container-image \
               --region ap-northeast-1 \
               --service-name $CIRCLE_PROJECT_REPONAME \
