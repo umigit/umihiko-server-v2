@@ -5,7 +5,7 @@ RUN useradd -rm appuser && \
 ENV PATH $PATH:/home/appuser/.local/bin
 USER appuser
 WORKDIR /code
-COPY ./django/code/requirements ./requirements
+COPY ./django/requirements ./requirements
 RUN pip install --upgrade pip && \
     pip install -r requirements/production.txt
 COPY ./django/code .
