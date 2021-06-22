@@ -1,19 +1,40 @@
 version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@2.0
+
 jobs:
-  build-image:
-    machine: true
+  build-deploy:
+    docker:
+      - image: circleci/python:3.9.5
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: Build a container
+          name: Build
           command: |
+            set -x
             docker build -t $CIRCLE_PROJECT_REPONAME -f ./django/Dockerfile.production .
-            docker images
+      - aws-cli/install
+      - run:
+          name: Deploy
+          command: |
+            set -x
+            sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
+            sudo chmod +x /usr/local/bin/lightsailctl
+            aws lightsail push-container-image \
+              --region ap-northeast-1 \
+              --service-name $CIRCLE_PROJECT_REPONAME \
+              --label $CIRCLE_PROJECT_REPONAME \
+              --image $CIRCLE_PROJECT_REPONAME:latest
+
 workflows:
   version: 2.1
   build_and_deploy:
     jobs:
-      - build-image:
+      - build-deploy:
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - circleci-test
