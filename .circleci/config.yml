@@ -32,6 +32,8 @@ workflows:
                 - main
                 - circleci-test
       - deploy:
+          requires:
+            - build-image
           filters:
             branches:
               only:
