@@ -16,6 +16,8 @@ jobs:
     docker:
       - image: circleci/python:3.9.5
     steps:
+      - checkout
+      - aws-cli/install
       - run:
           name: Deploy
           command: |
