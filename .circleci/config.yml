@@ -1,14 +1,26 @@
 version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@2.0
+
 jobs:
   build-image:
     machine: true
     steps:
       - checkout
       - run:
-          name: Build a container
+          name: Build image
           command: |
             docker build -t $CIRCLE_PROJECT_REPONAME -f ./django/Dockerfile.production .
-            docker images
+  deploy:
+    docker:
+      - image: circleci/python:3.9.5
+    steps:
+      - run:
+          name: Deploy
+          command: |
+            aws lightsail --help
+
 workflows:
   version: 2.1
   build_and_deploy:
@@ -16,4 +28,12 @@ workflows:
       - build-image:
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - circleci-test
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
+                - circleci-test
