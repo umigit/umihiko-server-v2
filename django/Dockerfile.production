@@ -1,0 +1,11 @@
+FROM python:3.9-slim-buster
+ENV PYTHONUNBUFFERED 1
+RUN useradd -rm appuser && \
+    mkdir -p /code/requirements
+ENV PATH $PATH:/home/appuser/.local/bin
+USER appuser
+WORKDIR /code
+COPY ./django/code/requirements ./requirements
+RUN pip install --upgrade pip && \
+    pip install -r requirements/production.txt
+COPY ./django/code .
