@@ -7,7 +7,7 @@ jobs:
       - run:
           name: Build a container
           command: |
-            docker build -t $CIRCLE_PROJECT_REPONAME -f django/Dockerfile.production django
+            docker build -t $CIRCLE_PROJECT_REPONAME -f ./django/Dockerfile.production .
             docker images
 workflows:
   version: 2.1
