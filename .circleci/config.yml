@@ -25,7 +25,7 @@ jobs:
             aws lightsail push-container-image \
               --region ap-northeast-1 \
               --service-name $CIRCLE_PROJECT_REPONAME \
-              --label maintainer="umigit" \
+              --label $CIRCLE_PROJECT_REPONAME \
               --image $CIRCLE_PROJECT_REPONAME:latest
   build-push-nginx:
     docker:
@@ -48,7 +48,7 @@ jobs:
             aws lightsail push-container-image \
               --region ap-northeast-1 \
               --service-name $CIRCLE_PROJECT_REPONAME \
-              --label maintainer="umigit" \
+              --label nginx \
               --image nginx:latest
 
 workflows:
