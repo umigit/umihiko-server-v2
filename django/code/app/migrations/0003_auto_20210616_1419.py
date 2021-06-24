@@ -6,38 +6,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0002_auto_20210616_1405'),
+        ("app", "0002_auto_20210616_1405"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='database',
-            name='experience_period',
-            field=models.CharField(blank=True, default='', max_length=200),
+            model_name="database",
+            name="experience_period",
+            field=models.CharField(blank=True, default="", max_length=200),
         ),
         migrations.AlterField(
-            model_name='framework',
-            name='experience_period',
-            field=models.CharField(blank=True, default='', max_length=200),
+            model_name="framework",
+            name="experience_period",
+            field=models.CharField(blank=True, default="", max_length=200),
         ),
         migrations.AlterField(
-            model_name='operatingsystem',
-            name='experience_period',
-            field=models.CharField(blank=True, default='', max_length=200),
+            model_name="operatingsystem",
+            name="experience_period",
+            field=models.CharField(blank=True, default="", max_length=200),
         ),
         migrations.AlterField(
-            model_name='programinglanguage',
-            name='experience_period',
-            field=models.CharField(blank=True, default='', max_length=200),
+            model_name="programinglanguage",
+            name="experience_period",
+            field=models.CharField(blank=True, default="", max_length=200),
         ),
         migrations.AlterField(
-            model_name='service',
-            name='experience_period',
-            field=models.CharField(blank=True, default='', max_length=200),
+            model_name="service",
+            name="experience_period",
+            field=models.CharField(blank=True, default="", max_length=200),
         ),
         migrations.AlterField(
-            model_name='tool',
-            name='experience_period',
-            field=models.CharField(blank=True, default='', max_length=200),
+            model_name="tool",
+            name="experience_period",
+            field=models.CharField(blank=True, default="", max_length=200),
         ),
     ]

@@ -8,12 +8,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0006_auto_20210617_0831'),
+        ("app", "0006_auto_20210617_0831"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='ProfileEn',
-            new_name='EnglishProfile',
+            old_name="ProfileEn",
+            new_name="EnglishProfile",
         ),
     ]

@@ -9,72 +9,126 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0001_initial'),
+        ("app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Database',
+            name="Database",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('experience_period', models.CharField(default='', max_length=200)),
-                ('skilled', models.BooleanField(default=False)),
-                ('like', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=200)),
+                ("experience_period", models.CharField(default="", max_length=200)),
+                ("skilled", models.BooleanField(default=False)),
+                ("like", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Framework',
+            name="Framework",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('experience_period', models.CharField(default='', max_length=200)),
-                ('skilled', models.BooleanField(default=False)),
-                ('like', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=200)),
+                ("experience_period", models.CharField(default="", max_length=200)),
+                ("skilled", models.BooleanField(default=False)),
+                ("like", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='OperatingSystem',
+            name="OperatingSystem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('experience_period', models.CharField(default='', max_length=200)),
-                ('skilled', models.BooleanField(default=False)),
-                ('like', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=200)),
+                ("experience_period", models.CharField(default="", max_length=200)),
+                ("skilled", models.BooleanField(default=False)),
+                ("like", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='ProgramingLanguage',
+            name="ProgramingLanguage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('experience_period', models.CharField(default='', max_length=200)),
-                ('skilled', models.BooleanField(default=False)),
-                ('like', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=200)),
+                ("experience_period", models.CharField(default="", max_length=200)),
+                ("skilled", models.BooleanField(default=False)),
+                ("like", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Service',
+            name="Service",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('experience_period', models.CharField(default='', max_length=200)),
-                ('skilled', models.BooleanField(default=False)),
-                ('like', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=200)),
+                ("experience_period", models.CharField(default="", max_length=200)),
+                ("skilled", models.BooleanField(default=False)),
+                ("like", models.BooleanField(default=False)),
             ],
         ),
         migrations.AddField(
-            model_name='tool',
-            name='experience_period',
-            field=models.CharField(default='', max_length=200),
+            model_name="tool",
+            name="experience_period",
+            field=models.CharField(default="", max_length=200),
         ),
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('summary', models.TextField(default='')),
-                ('introduction', models.TextField(default='')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("summary", models.TextField(default="")),
+                ("introduction", models.TextField(default="")),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
