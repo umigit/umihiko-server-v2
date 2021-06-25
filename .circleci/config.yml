@@ -25,7 +25,7 @@ jobs:
             aws lightsail push-container-image \
               --region ap-northeast-1 \
               --service-name $CIRCLE_PROJECT_REPONAME \
-              --label $CIRCLE_PROJECT_REPONAME \
+              --label app \
               --image app:latest
   build-push-nginx:
     docker:
