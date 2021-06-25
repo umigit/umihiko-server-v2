@@ -14,7 +14,7 @@ jobs:
           name: Build
           command: |
             set -x
-            docker build -t $CIRCLE_PROJECT_REPONAME -f ./django/Dockerfile.production .
+            docker build -t app -f ./django/Dockerfile.production .
       - aws-cli/install
       - run:
           name: Push
