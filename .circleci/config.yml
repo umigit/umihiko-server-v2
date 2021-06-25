@@ -26,7 +26,7 @@ jobs:
               --region ap-northeast-1 \
               --service-name $CIRCLE_PROJECT_REPONAME \
               --label $CIRCLE_PROJECT_REPONAME \
-              --image $CIRCLE_PROJECT_REPONAME:latest
+              --image app:latest
   build-push-nginx:
     docker:
       - image: circleci/python:3.9.5
