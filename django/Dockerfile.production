@@ -16,6 +16,6 @@ COPY --from=builder /usr/local/bin/uwsgi /usr/local/bin/uwsgi
 COPY ./django/code .
 COPY ./django/uwsgi.ini .
 EXPOSE 3031
-ENTRYPOINT python manage.py migrate --noimput && \
+ENTRYPOINT python manage.py migrate --noinput && \
     python manage.py collectstatic --noinput --clear
 CMD ["uwsgi", "uwsgi.ini"]
