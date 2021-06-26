@@ -30,13 +30,12 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: ./nginx/Dockerfile
+      dockerfile: ./nginx/Dockerfile.development
     restart: unless-stopped
     ports:
       - 8000:80
     volumes:
       - ./nginx/log:/var/log/nginx/
-      - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - app
       - db

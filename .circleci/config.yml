@@ -37,7 +37,7 @@ jobs:
           name: Build
           command: |
             set -x
-            docker build -t nginx -f ./nginx/Dockerfile .
+            docker build -t nginx -f ./nginx/Dockerfile.production .
       - aws-cli/install
       - run:
           name: Push
