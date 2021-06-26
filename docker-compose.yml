@@ -10,8 +10,6 @@ services:
       - .env
     volumes:
       - ./django/code:/code
-    ports:
-      - '8000:8000'
     stdin_open: true
     tty: true
     command: python3 manage.py runserver 0.0.0.0:8000
@@ -29,5 +27,31 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./nginx/log:/var/log/nginx/
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+      - db
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin4.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+
 volumes:
   db-data:
+  pgadmin-data:
