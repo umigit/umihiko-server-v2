@@ -47,6 +47,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@pgadmin4.com
       PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 5433
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
