@@ -45,6 +45,7 @@ jobs:
               --service-name $CIRCLE_PROJECT_REPONAME \
               --label app \
               --image app:latest
+
   build-push-nginx:
     docker:
       - image: circleci/python:3.9.5
@@ -63,14 +64,15 @@ jobs:
           name: Push
           command: |
             set -x
-            cat deploy.json
             sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
             sudo chmod +x /usr/local/bin/lightsailctl
             aws lightsail push-container-image \
               --region ap-northeast-1 \
               --service-name $CIRCLE_PROJECT_REPONAME \
               --label nginx \
-              --image nginx:latest
+              --image nginx:latest | \
+              grep Refer | awk '{print $6}' | sed -i -e "s/\"<nginx-image>\"/$(cat)/" deploy.json
+            cat deploy.json
   # deploy:
   #   docker:
   #     - image: circleci/python:3.9.5
