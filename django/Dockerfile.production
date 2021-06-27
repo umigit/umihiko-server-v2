@@ -1,11 +1,21 @@
-FROM python:3.9-slim-buster
+FROM python:3.9-buster as builder
 ENV PYTHONUNBUFFERED 1
-RUN useradd -rm appuser && \
-    mkdir -p /code/requirements
-ENV PATH $PATH:/home/appuser/.local/bin
-USER appuser
 WORKDIR /code
 COPY ./django/requirements ./requirements
 RUN pip install --upgrade pip && \
     pip install -r requirements/production.txt
+
+FROM python:3.9-slim-buster
+ENV PYTHONUNBUFFERED 1
+WORKDIR /code
+RUN useradd -rm appuser
+ENV PATH $PATH:/home/appuser/.local/bin
+USER appuser
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY --from=builder /usr/local/bin/uwsgi /usr/local/bin/uwsgi
 COPY ./django/code .
+COPY ./django/uwsgi.ini .
+EXPOSE 3031
+ENTRYPOINT python manage.py migrate --noinput --settings umihiko_server_v2.settings.production && \
+    python manage.py collectstatic --noinput --clear --settings umihiko_server_v2.settings.production
+CMD ["uwsgi", "uwsgi.ini"]

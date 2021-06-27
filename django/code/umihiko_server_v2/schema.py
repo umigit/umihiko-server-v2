@@ -21,7 +21,7 @@ class UserType(DjangoObjectType):
 class ProfileType(DjangoObjectType):
     class Meta:
         model = Profile
-        filter_fields = ("nickname", "summary", "introduction")
+        fields = ("nickname", "summary", "introduction")
 
 
 class ProgramingLanguageType(DjangoObjectType):

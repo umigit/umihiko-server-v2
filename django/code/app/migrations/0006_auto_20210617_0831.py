@@ -9,30 +9,46 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0005_auto_20210617_0008'),
+        ("app", "0005_auto_20210617_0008"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='nickname',
-            field=models.CharField(default='', max_length=200),
+            model_name="profile",
+            name="nickname",
+            field=models.CharField(default="", max_length=200),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="profile",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.CreateModel(
-            name='ProfileEn',
+            name="ProfileEn",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nickname', models.CharField(default='', max_length=200)),
-                ('summary', models.TextField(blank=True, default='')),
-                ('introduction', models.TextField(blank=True, default='')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nickname", models.CharField(default="", max_length=200)),
+                ("summary", models.TextField(blank=True, default="")),
+                ("introduction", models.TextField(blank=True, default="")),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

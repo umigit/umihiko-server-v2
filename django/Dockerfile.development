@@ -1,18 +1,16 @@
-FROM python:3.9-slim-buster
+FROM python:3.9-buster as builder
 ENV PYTHONUNBUFFERED 1
-ENV DEBIAN_FRONTEND=noninteractive
-ENV DEBCONF_NOWARNINGS=yes
-RUN apt-get update && apt-get install -y --no-install-recommends sudo && \
-    apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    useradd --uid 1001 --create-home --shell /bin/sh -G sudo,root appuser && \
-    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-    mkdir -p /code/requirements
-ENV PATH $PATH:/home/appuser/.local/bin
-USER appuser
 WORKDIR /code
 COPY ./django/requirements ./requirements
 RUN pip install --upgrade pip && \
-    pip install -r requirements/development.txt && \
-    sudo rm -rf requirements
+    pip install -r requirements/development.txt
+
+FROM python:3.9-slim-buster
+ENV PYTHONUNBUFFERED 1
+WORKDIR /code
+RUN useradd --uid 1001 --create-home --shell /bin/sh -G sudo,root appuser && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ENV PATH $PATH:/home/appuser/.local/bin
+USER appuser
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 COPY ./django/code .
