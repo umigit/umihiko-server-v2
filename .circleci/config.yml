@@ -72,6 +72,11 @@ jobs:
               --label nginx \
               --image nginx:latest | \
               grep Refer | awk '{print $6}' | sed -i -e "s/\"<nginx-image>\"/$(cat)/" deploy.json
+            cat deploy.json
+      - persist_to_workspace:
+        root: .
+        paths:
+          - deploy.json
 
   deploy:
     docker:
