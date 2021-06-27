@@ -17,9 +17,9 @@ jobs:
               -e "s/<PGADMIN_DEFAULT_PASSWORD>/${PGADMIN_DEFAULT_PASSWORD}/" \
               deploy.base.json > deploy.json
       - persist_to_workspace:
-        root: .
-        paths:
-          - deploy.json
+          root: .
+          paths:
+            - deploy.json
   build-push-app:
     docker:
       - image: circleci/python:3.9.5
