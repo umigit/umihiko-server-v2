@@ -24,7 +24,7 @@ jobs:
     docker:
       - image: circleci/python:3.9.5
     steps:
-      - checkkout
+      - checkout
       - attach_workspace:
           at: .
       - setup_remote_docker
