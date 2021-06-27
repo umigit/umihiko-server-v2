@@ -90,11 +90,12 @@ jobs:
           name: Deploy
           command: |
             set -x
+            sudo apt-get update && sudo apt-get install jq
             sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
             sudo chmod +x /usr/local/bin/lightsailctl
             aws lightsail create-container-service-deployment \
               --service-name $CIRCLE_PROJECT_REPONAME \
-              --cli-input-json $(cat deploy.json)
+              --cli-input-json $(jq -Rs . deploy.json)
 
 workflows:
   version: 2.1
