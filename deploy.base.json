@@ -2,6 +2,7 @@
   "containers": {
     "nginx": {
       "image": "<nginx-image>",
+      "command": [],
       "environment": {},
       "ports": {
         "80": "HTTP"
@@ -9,6 +10,7 @@
     },
     "pgadmin4": {
       "image": "dpage/pgadmin4",
+      "command": [],
       "environment": {
         "PGADMIN_DEFAULT_EMAIL": "<PGADMIN_DEFAULT_EMAIL>",
         "PGADMIN_DEFAULT_PASSWORD": "<PGADMIN_DEFAULT_PASSWORD>",
