@@ -17,7 +17,7 @@
         "PGADMIN_LISTEN_PORT": "5433"
       },
       "ports": {
-        "5433": "TCP"
+        "5433": "HTTP"
       }
     }
   },
