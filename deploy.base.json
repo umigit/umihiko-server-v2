@@ -9,12 +9,13 @@
       }
     },
     "pgadmin4": {
-      "image": "dpage/pgadmin4",
+      "image": ":umihiko-server-v2.pgadmin4g.85",
       "command": [],
       "environment": {
         "PGADMIN_DEFAULT_EMAIL": "<PGADMIN_DEFAULT_EMAIL>",
         "PGADMIN_DEFAULT_PASSWORD": "<PGADMIN_DEFAULT_PASSWORD>",
-        "PGADMIN_LISTEN_PORT": "5433"
+        "PGADMIN_LISTEN_PORT": "5433",
+        "GUNICORN_CMD_ARGS": "--worker-class=gevent"
       },
       "ports": {
         "5433": "TCP"
