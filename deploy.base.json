@@ -1,0 +1,37 @@
+{
+  "containers": {
+    "nginx": {
+      "image": "<nginx-image>",
+      "command": [],
+      "environment": {},
+      "ports": {
+        "80": "HTTP"
+      }
+    },
+    "pgadmin4": {
+      "image": ":umihiko-server-v2.pgadmin4g.85",
+      "command": [],
+      "environment": {
+        "PGADMIN_DEFAULT_EMAIL": "<PGADMIN_DEFAULT_EMAIL>",
+        "PGADMIN_DEFAULT_PASSWORD": "<PGADMIN_DEFAULT_PASSWORD>",
+        "PGADMIN_LISTEN_PORT": "5433",
+        "GUNICORN_CMD_ARGS": "--worker-class=gevent"
+      },
+      "ports": {
+        "5433": "TCP"
+      }
+    }
+  },
+  "publicEndpoint": {
+    "containerName": "nginx",
+    "containerPort": 80,
+    "healthCheck": {
+      "healthyThreshold": 2,
+      "unhealthyThreshold": 2,
+      "timeoutSeconds": 5,
+      "intervalSeconds": 10,
+      "path": "/healthcheck.html",
+      "successCodes": "200-499"
+    }
+  }
+}
