@@ -4,17 +4,32 @@ orbs:
   aws-cli: circleci/aws-cli@2.0
 
 jobs:
+  make-gcp-json:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - checkout
+      - run:
+          name: Create gcloud credential
+          command: |
+            echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > gcloud.json
+      - persist_to_workspace:
+          root: .
+          paths:
+            - gcloud.json
   build-push-app:
     docker:
       - image: google/cloud-sdk
     steps:
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Gcloud Config
           command: |
-            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud auth activate-service-account --key-file gcloud.json
             gcloud --quiet config set project $GOOGLE_PROJECT_ID
             gcloud --quiet config set compute/zone $GOOGLE_COMPUTE_ZONE
-      - checkout
       - setup_remote_docker
       - run:
           name: Build
@@ -32,6 +47,14 @@ jobs:
       - image: google/cloud-sdk
     steps:
       - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Gcloud Config
+          command: |
+            gcloud auth activate-service-account --key-file gcloud.json
+            gcloud --quiet config set project $GOOGLE_PROJECT_ID
+            gcloud --quiet config set compute/zone $GOOGLE_COMPUTE_ZONE
       - setup_remote_docker
       - run:
           name: Build
@@ -48,13 +71,23 @@ workflows:
   version: 2.1
   build_and_deploy:
     jobs:
+      - make-gcp-json:
+          filters:
+            branches:
+              only:
+                - main
+                - circleci-test
       - build-push-app:
+          requires:
+            - make-gcp-json
           filters:
             branches:
               only:
                 - main
                 - circleci-test
       - build-push-nginx:
+          requires:
+            - make-gcp-json
           filters:
             branches:
               only:
