@@ -1,13 +1,5 @@
 from django.contrib import admin
-from .models import (
-    ProgramingLanguage,
-    Framework,
-    Database,
-    OperatingSystem,
-    Service,
-    Tool,
-    Profile,
-)
+from .models import Skill
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -22,8 +14,9 @@ class ProfileAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
 
 
-class ProgramingLanguageAdmin(admin.ModelAdmin):
+class SkillAdmin(admin.ModelAdmin):
     list_display = (
+        "category",
         "name",
         "like",
         "skilled",
@@ -34,72 +27,4 @@ class ProgramingLanguageAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
 
 
-class FrameworkAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "like",
-        "skilled",
-        "experience_period",
-        "created_at",
-        "updated_at",
-    )
-    ordering = ("-created_at",)
-
-
-class DatabaseAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "like",
-        "skilled",
-        "experience_period",
-        "created_at",
-        "updated_at",
-    )
-    ordering = ("-created_at",)
-
-
-class OperatingSystemAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "like",
-        "skilled",
-        "experience_period",
-        "created_at",
-        "updated_at",
-    )
-    ordering = ("-created_at",)
-
-
-class ServiceAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "like",
-        "skilled",
-        "experience_period",
-        "created_at",
-        "updated_at",
-    )
-    ordering = ("-created_at",)
-
-
-class ToolAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "like",
-        "skilled",
-        "experience_period",
-        "created_at",
-        "updated_at",
-    )
-    ordering = ("-created_at",)
-
-
-# admin.site.unregister(User)
-# admin.site.register(User, UserAdmin)
-admin.site.register(ProgramingLanguage, ProgramingLanguageAdmin)
-admin.site.register(Framework, FrameworkAdmin)
-admin.site.register(Database, DatabaseAdmin)
-admin.site.register(OperatingSystem, OperatingSystemAdmin)
-admin.site.register(Service, ServiceAdmin)
-admin.site.register(Tool, ToolAdmin)
-admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Skill, SkillAdmin)
