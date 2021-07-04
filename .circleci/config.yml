@@ -8,20 +8,24 @@ jobs:
     docker:
       - image: google/cloud-sdk
     steps:
+      - run:
+          name: Gcloud Config
+          command: |
+            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project $GOOGLE_PROJECT_ID
+            gcloud --quiet config set compute/zone $GOOGLE_COMPUTE_ZONE
       - checkout
-      - attach_workspace:
-          at: .
       - setup_remote_docker
       - run:
           name: Build
           command: |
             set -x
-            docker build -t asia.gcr.io/$CIRCLE_PROJECT_REPONAME/app -f ./django/Dockerfile.production .
+            docker build -t asia.gcr.io/$GOOGLE_PROJECT_ID/app -f ./django/Dockerfile.production .
       - run:
           name: Push
           command: |
             set -x
-            docker push asia.gcr.io/$CIRCLE_PROJECT_REPONAME/app
+            docker push asia.gcr.io/$GOOGLE_PROJECT_ID/app
 
   build-push-nginx:
     docker:
@@ -33,12 +37,12 @@ jobs:
           name: Build
           command: |
             set -x
-            docker build -t asia.gcr.io/$CIRCLE_PROJECT_REPONAME/nginx -f ./nginx/Dockerfile.production .
+            docker build -t asia.gcr.io/$GOOGLE_PROJECT_ID/nginx -f ./nginx/Dockerfile.production .
       - run:
           name: Push
           command: |
             set -x
-            docker push asia.gcr.io/$CIRCLE_PROJECT_REPONAME/nginx
+            docker push asia.gcr.io/$GOOGLE_PROJECT_ID/nginx
 
 workflows:
   version: 2.1
