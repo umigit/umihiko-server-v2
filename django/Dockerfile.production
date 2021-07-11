@@ -8,7 +8,7 @@ RUN pip install --upgrade pip && \
 FROM python:3.9-slim-buster
 ENV PYTHONUNBUFFERED 1
 WORKDIR /code
-RUN useradd -rm appuser && mkdir static
+RUN useradd -rm appuser && chown appuser /code
 ENV PATH $PATH:/home/appuser/.local/bin
 USER appuser
 COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
