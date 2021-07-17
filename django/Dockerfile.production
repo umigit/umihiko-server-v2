@@ -22,4 +22,3 @@ RUN apt-get update && \
 USER appuser
 EXPOSE $PORT
 ENTRYPOINT ["entrypoint.sh"]
-CMD uwsgi --ini uwsgi.ini --http 0.0.0.0:$PORT
