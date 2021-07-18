@@ -15,7 +15,7 @@ COPY ./django/code .
 COPY ./django/uwsgi.ini .
 COPY ./django/entrypoint.sh /usr/local/bin
 RUN apt-get update && \
-    apt-get install -y build-essential libxml2 libxml2-dev libxmlsec1-dev && \
+    apt-get install -y build-essential libxml2 libxml2-dev libxmlsec1-dev mime-support && \
     chmod +x /usr/local/bin/entrypoint.sh && \
     useradd appuser && \
     chown -R appuser /code
