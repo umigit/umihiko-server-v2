@@ -131,3 +131,6 @@ dmypy.json
 # My config
 .bash_history
 process.yml
+
+# static
+static
