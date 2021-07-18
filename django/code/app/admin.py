@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Skill
+from .models import Profile, Skill
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -27,4 +27,5 @@ class SkillAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
 
 
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Skill, SkillAdmin)
