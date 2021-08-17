@@ -18,6 +18,8 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 from umihiko_server_v2.schema import schema as portfolio_schema
+from django.conf.urls import url, include
+from markdownx import urls as markdownx
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,4 +27,5 @@ urlpatterns = [
         "graphql/portfolio",
         csrf_exempt(GraphQLView.as_view(graphiql=True, schema=portfolio_schema)),
     ),
+    url(r"^markdownx/", include(markdownx)),
 ]

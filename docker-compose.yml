@@ -30,4 +30,5 @@ services:
       - db-data:/var/lib/postgresql/data
 
 volumes:
+  node_modules:
   db-data:

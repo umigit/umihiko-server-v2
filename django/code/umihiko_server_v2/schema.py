@@ -1,8 +1,7 @@
-from django.db.models.fields import IntegerField
-from graphene import Schema, ObjectType, List, Field, Int
+from graphene import Schema, ObjectType, List, Field, Int, String, relay
 from graphene_django import DjangoObjectType
 from django.contrib.auth.models import User
-from app.models import Profile, Skill
+from app.models import Profile, Skill, BlogPost, Image, BlogCategory
 
 
 class SkillType(DjangoObjectType):
@@ -57,16 +56,76 @@ class UserType(DjangoObjectType):
 class ProfileType(DjangoObjectType):
     class Meta:
         model = Profile
-        fields = ("nickname", "summary", "introduction")
+        fields = ("nickname", "summary", "introduction", "locale")
+
+
+class ImageType(DjangoObjectType):
+    class Meta:
+        model = Image
+        fields = ("title",)
+
+    url = String()
+
+    def resolve_url(self, info):
+        return (
+            f"https://storage.googleapis.com/umihiko-images-development/{self.picture}"
+        )
+
+
+class BlogPostType(DjangoObjectType):
+    class Meta:
+        model = BlogPost
+        interfaces = (relay.Node,)
+        fields = (
+            "slug",
+            "title",
+            "introduction",
+            "markdown",
+            "published_at",
+            "updated_at",
+        )
+
+    image = Field(ImageType)
+    category = String()
+
+    def resolve_image(self, info):
+        return self.image
+
+    def resolve_category(self, info):
+        return self.category.name
+
+
+class BlogPostConnection(relay.Connection):
+    class Meta:
+        node = BlogPostType
 
 
 class Query(ObjectType):
     user = Field(UserType, id=Int(required=True))
+    blog_posts = relay.ConnectionField(BlogPostConnection, category=String())
+    blog_post_by_slug = Field(BlogPostType, slug=String(required=True))
 
     def resolve_user(root, info, id):
         try:
             return User.objects.get(id=id)
         except User.DoesNotExist:
+            return None
+
+    def resolve_blog_posts(root, info, **kwargs):
+        try:
+            if kwargs.get("category") is None:
+                return BlogPost.objects.all().order_by("-published_at")
+            else:
+                return BlogPost.objects.filter(
+                    category__name=kwargs.get("category")
+                ).order_by("-published_at")
+        except BlogPost.DoesNotExist:
+            return None
+
+    def resolve_blog_post_by_slug(root, info, slug):
+        try:
+            return BlogPost.objects.get(slug=slug)
+        except BlogPost.DoesNotExist:
             return None
 
 

@@ -9,10 +9,7 @@ FROM python:3.9-slim-buster
 ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 RUN apt-get update && \
-    apt-get install -y mime-support && \
-    useradd appuser && \
-    chown -R appuser /code
-ENV PATH $PATH:/home/appuser/.local/bin
-USER appuser
+    apt-get install -y mime-support
 COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 COPY ./django/code .
+COPY ./django/umihiko-server-v2-development.json /etc

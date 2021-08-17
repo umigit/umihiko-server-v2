@@ -1,0 +1,38 @@
+<style>
+  .row {
+    display: flex;
+  }
+
+  .markdownx-editor {
+    width: 95% !important;
+  }
+  .markdownx-preview {
+    width: 100% !important;
+    padding-left: 20px;
+  }
+
+  .markdownx-editor textarea {
+    width: 95% !important;
+  }
+
+  .left,
+  .right {
+    flex: 1;
+  }
+
+  .markdownx-preview h1,
+  .markdownx-preview h2,
+  .markdownx-preview h3,
+  .markdownx-preview h4,
+  .markdownx-preview h5,
+  .markdownx-preview h6 {
+    color: #fff !important;
+  }
+</style>
+
+<div class="markdownx row">
+  <div class="left">{% include 'django/forms/widgets/textarea.html' %}</div>
+  <div class="right">
+    <div class="markdownx-preview"></div>
+  </div>
+</div>

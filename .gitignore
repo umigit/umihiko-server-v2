@@ -134,3 +134,6 @@ process.yml
 
 # static
 static
+
+# secret
+*development.json

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from markdownx.models import MarkdownxField
 
 
 class Profile(models.Model):
@@ -35,3 +36,58 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Image(models.Model):
+    title = models.CharField(max_length=200, null=False)
+    picture = models.ImageField(upload_to="images")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+class BlogCategory(models.Model):
+    name = models.CharField(max_length=200, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class BlogPost(models.Model):
+    class Status(models.TextChoices):
+        DRAFT = "draft"
+        FUTURE = "future"
+        PUBLISH = "publish"
+        PRIVATE = "private"
+        TRASH = "trash"
+
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="posts")
+    image = models.ForeignKey(
+        Image,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="posts",
+    )
+    category = models.ForeignKey(
+        BlogCategory, on_delete=models.SET_NULL, null=True, related_name="posts"
+    )
+    slug = models.CharField(max_length=200, blank=False, unique=True)
+    title = models.CharField(max_length=200, null=False, default="")
+    introduction = models.TextField(max_length=400, null=False)
+    markdown = MarkdownxField()
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.DRAFT,
+        null=False,
+    )
+    published_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

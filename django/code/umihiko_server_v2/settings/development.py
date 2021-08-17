@@ -1,4 +1,7 @@
 from .base import *
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 DEBUG = True
 ALLOWED_HOSTS = ["localhost"]
@@ -12,3 +15,6 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+GS_BUCKET_NAME = "umihiko-images-development"

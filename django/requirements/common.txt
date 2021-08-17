@@ -1,3 +1,5 @@
 Django==3.2.4
 psycopg2-binary==2.8.6
-graphene-django>=2.1.8
+graphene-django>=2.1.9
+django-markdownx>=3.0.0
+django-storages[google]
