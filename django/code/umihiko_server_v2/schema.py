@@ -2,6 +2,7 @@ from graphene import Schema, ObjectType, List, Field, Int, String, relay
 from graphene_django import DjangoObjectType
 from django.contrib.auth.models import User
 from app.models import Profile, Skill, BlogPost, Image, BlogCategory
+import os
 
 
 class SkillType(DjangoObjectType):
@@ -67,9 +68,7 @@ class ImageType(DjangoObjectType):
     url = String()
 
     def resolve_url(self, info):
-        return (
-            f"https://storage.googleapis.com/umihiko-images-development/{self.picture}"
-        )
+        return f"{os.environ['GS_BUCKET_URL']}/{self.picture}"
 
 
 class BlogPostType(DjangoObjectType):
