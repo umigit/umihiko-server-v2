@@ -136,4 +136,4 @@ process.yml
 static
 
 # secret
-*development.json
+umihiko-server-v2-*.json
