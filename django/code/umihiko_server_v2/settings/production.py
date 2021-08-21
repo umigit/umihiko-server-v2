@@ -13,3 +13,6 @@ DATABASES = {
         "PORT": os.environ["DB_PORT"],
     }
 }
+
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+GS_BUCKET_NAME = os.environ["GS_BUCKET_NAME"]
