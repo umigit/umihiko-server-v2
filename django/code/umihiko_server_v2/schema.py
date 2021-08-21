@@ -100,13 +100,13 @@ class BlogPostConnection(relay.Connection):
 
 
 class Query(ObjectType):
-    user = Field(UserType, id=Int(required=True))
+    user = Field(UserType, username=String(required=True))
     blog_posts = relay.ConnectionField(BlogPostConnection, category=String())
     blog_post_by_slug = Field(BlogPostType, slug=String(required=True))
 
-    def resolve_user(root, info, id):
+    def resolve_user(root, info, username):
         try:
-            return User.objects.get(id=id)
+            return User.objects.get(username=username)
         except User.DoesNotExist:
             return None
 
