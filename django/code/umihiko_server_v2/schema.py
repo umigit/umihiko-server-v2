@@ -113,10 +113,12 @@ class Query(ObjectType):
     def resolve_blog_posts(root, info, **kwargs):
         try:
             if kwargs.get("category") is None:
-                return BlogPost.objects.all().order_by("-published_at")
+                return BlogPost.objects.filter(status="publish").order_by(
+                    "-published_at"
+                )
             else:
                 return BlogPost.objects.filter(
-                    category__name=kwargs.get("category")
+                    status="publish", category__name=kwargs.get("category")
                 ).order_by("-published_at")
         except BlogPost.DoesNotExist:
             return None
