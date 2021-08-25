@@ -85,7 +85,7 @@ class BlogPost(models.Model):
         default=Status.DRAFT,
         null=False,
     )
-    published_at = models.DateTimeField()
+    published_at = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
